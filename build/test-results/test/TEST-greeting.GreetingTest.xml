@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="greeting.GreetingTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-01-18T14:48:34" hostname="C02ZJ4TXLVDM" time="0.105">
+  <properties/>
+  <testcase name="itShouldReturnNullCase()" classname="greeting.GreetingTest" time="0.092"/>
+  <testcase name="shouldReturnHelloName()" classname="greeting.GreetingTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
