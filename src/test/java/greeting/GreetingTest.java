@@ -7,9 +7,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GreetingTest {
 
     @Test
-    void renameMe() {
-        String greeting = Greeting.greet("");
+    void shouldReturnHelloName() {
+        String expected = "Hello, Bob.";
+        String actual = Greeting.greet("Bob");
+        assertThat(actual).isEqualTo(expected);
 
-        assertThat(greeting).isNotNull();
     }
 }
