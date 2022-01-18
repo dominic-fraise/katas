@@ -8,11 +8,15 @@ public class Greeting {
             return concatenateString("my friend");
         }
 
-        if (name.equals(name.toUpperCase())) {
+        if (isUpperCase(name)) {
             return "HELLO " + name + "!";
         }
 
         return concatenateString(name);
+    }
+
+    private static boolean isUpperCase(String name) {
+        return name.equals(name.toUpperCase());
     }
 
     private static String concatenateString(String name) {
