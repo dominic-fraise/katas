@@ -8,9 +8,9 @@ class GreetingTest {
 
     @Test
     void shouldReturnHelloName() {
-        String expected = "Hello, Bob.";
-        String actual = Greeting.greet("Bob");
-        assertThat(actual).isEqualTo(expected);
+        String greetResult = Greeting.greet("Bob");
+
+        assertThat(greetResult).isEqualTo("Hello, Bob.");
 
     }
 }
