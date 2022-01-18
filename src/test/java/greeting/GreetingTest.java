@@ -15,7 +15,7 @@ class GreetingTest {
     }
 
     @Test
-    void itShouldReturnNullCase() {
+    void shouldReturnNullCase() {
         String actual = Greeting.greet(null);
 
         assertThat(actual).isEqualTo("Hello, my friend.");
