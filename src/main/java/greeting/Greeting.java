@@ -9,10 +9,14 @@ public class Greeting {
         }
 
         if (isUpperCase(name)) {
-            return "HELLO " + name + "!";
+            return concatenateShout(name);
         }
 
         return concatenateString(name);
+    }
+
+    private static String concatenateShout(String name) {
+        return "HELLO " + name + "!";
     }
 
     private static boolean isUpperCase(String name) {
