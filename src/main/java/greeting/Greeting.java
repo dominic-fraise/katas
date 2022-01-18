@@ -8,6 +8,10 @@ public class Greeting {
             return concatenateString("my friend");
         }
 
+        if (name.equals(name.toUpperCase())) {
+            return "HELLO " + name + "!";
+        }
+
         return concatenateString(name);
     }
 

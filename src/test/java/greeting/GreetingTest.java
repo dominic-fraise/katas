@@ -21,4 +21,12 @@ class GreetingTest {
         assertThat(actual).isEqualTo("Hello, my friend.");
 
     }
+
+    @Test
+    void shouldShoutBack() {
+        String actual = Greeting.greet("JERRY");
+
+        assertThat(actual).isEqualTo("HELLO JERRY!");
+
+    }
 }
