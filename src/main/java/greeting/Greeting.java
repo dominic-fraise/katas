@@ -1,7 +1,8 @@
 package greeting;
 
-public class Greeting {
+import java.util.List;
 
+public class Greeting {
     static String greet(String name) {
 
         if (name == null) {
@@ -13,6 +14,10 @@ public class Greeting {
         }
 
         return concatenateString(name);
+    }
+
+    static String greet(List<String> names) {
+        return concatenateString(names.get(0) + " and " + names.get(1));
     }
 
     private static String concatenateShout(String name) {

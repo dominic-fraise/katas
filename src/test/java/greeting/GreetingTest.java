@@ -2,6 +2,8 @@ package greeting;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GreetingTest {
@@ -29,5 +31,12 @@ class GreetingTest {
 
         assertThat(actual).isEqualTo("HELLO JERRY!");
 
+    }
+
+    @Test
+    void itShouldHandleMultipleNames() {
+        String actual = Greeting.greet(List.of("Jill", "Jane"));
+
+        assertThat(actual).isEqualTo("Hello, Jill and Jane.");
     }
 }
