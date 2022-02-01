@@ -39,4 +39,25 @@ class GreetingTest {
 
         assertThat(actual).isEqualTo("Hello, Jill and Jane.");
     }
+
+    @Test
+    void shouldHandleArbitraryNames() {
+        String actual = Greeting.greet(List.of("Amy", "Brian", "Charlotte"));
+
+        assertThat(actual).isEqualTo("Hello, Amy, Brian, and Charlotte.");
+    }
+
+    @Test
+    void shouldHandleListOfOneName() {
+        String actual = Greeting.greet(List.of("Amy"));
+
+        assertThat(actual).isEqualTo("Hello, Amy.");
+    }
+
+    @Test
+    void shouldHandleEmptyListOfNames() {
+        String actual = Greeting.greet(List.of());
+
+        assertThat(actual).isEqualTo("Hello, my friend.");
+    }
 }

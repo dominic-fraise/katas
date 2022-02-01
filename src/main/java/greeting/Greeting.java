@@ -17,7 +17,16 @@ public class Greeting {
     }
 
     static String greet(List<String> names) {
-        return concatenateString(names.get(0) + " and " + names.get(1));
+        if(names.isEmpty()) {
+            return greet((String) null);
+        }
+        if(names.size() == 1) {
+            return greet(names.get(0));
+        }
+        String concat = names.size() > 2 ? ", and " : " and ";
+        String namesList = String.join(", ", names.subList(0, names.size() - 1)) + concat + names.get(names.size() - 1);
+
+        return concatenateString(namesList);
     }
 
     private static String concatenateShout(String name) {
