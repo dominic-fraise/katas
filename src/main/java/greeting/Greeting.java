@@ -9,7 +9,7 @@ public class Greeting {
         if (names == null) {
             return concatenateString("my friend");
         }
-        if (names.length == 0) return "";
+        if (names.length == 0) return "Hello nameless";
         if (names.length == 1) {
             String name = names[0];
             return generateGreeting(name);
