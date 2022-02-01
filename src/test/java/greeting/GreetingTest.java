@@ -64,4 +64,11 @@ class GreetingTest {
 
         assertThat(greetResult).isEqualTo("Hello, Charlotte. AND HELLO AMY AND BRIAN!");
     }
+
+    @Test
+    void shouldGreetWithMixedCasingWithThreeLowerCaseNames() {
+        String greetResult = Greeting.greet("AMY", "Brian", "Charlotte", "Jill");
+
+        assertThat(greetResult).isEqualTo("Hello, Brian, Charlotte, and Jill. AND HELLO AMY!");
+    }
 }
