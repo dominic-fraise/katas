@@ -29,4 +29,11 @@ class GreetingTest {
         assertThat(actual).isEqualTo("HELLO JERRY!");
 
     }
+
+    @Test
+    void shouldGreetMultipleNames() {
+        String greetResult = Greeting.greet("Jill", "Jane");
+
+        assertThat(greetResult).isEqualTo("Hello, Jill and Jane.");
+    }
 }

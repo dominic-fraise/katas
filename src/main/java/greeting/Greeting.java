@@ -2,17 +2,20 @@ package greeting;
 
 public class Greeting {
 
-    static String greet(String name) {
-
-        if (name == null) {
+    static String greet(String... names) {
+        if (names == null) {
             return concatenateString("my friend");
         }
+        if (names.length == 1) {
+            String name = names[0];
+            if (isUpperCase(name)) {
+                return concatenateShout(name);
+            }
 
-        if (isUpperCase(name)) {
-            return concatenateShout(name);
+            return concatenateString(name);
+        } else {
+            return "Hello, " + String.join(" and ", names) + ".";
         }
-
-        return concatenateString(name);
     }
 
     private static String concatenateShout(String name) {
