@@ -34,7 +34,7 @@ class GreetingTest {
     }
 
     @Test
-    void itShouldHandleMultipleNames() {
+    void shouldHandleTwoNames() {
         String actual = Greeting.greet(List.of("Jill", "Jane"));
 
         assertThat(actual).isEqualTo("Hello, Jill and Jane.");
