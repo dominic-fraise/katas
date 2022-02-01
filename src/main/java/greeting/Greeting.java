@@ -9,6 +9,14 @@ public class Greeting {
         if (names == null) {
             return concatenateString("my friend");
         }
+        var upperCaseNames = Arrays.stream(names).filter(name -> isUpperCase(name)).toArray(String[]::new);
+        var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
+
+        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0) {
+            String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
+        }
+
         switch(names.length) {
             case 0:
                 return "Hello nameless";
