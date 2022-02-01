@@ -45,7 +45,7 @@ class GreetingTest {
     }
 
     @Test
-    void shouldGreetWithMixedCasing() {
+    void shouldGreetWithNoName() {
         String greetResult = Greeting.greet();
         assertThat(greetResult).isEqualTo("Hello nameless");
     }
