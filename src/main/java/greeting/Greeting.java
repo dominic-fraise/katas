@@ -13,11 +13,9 @@ public class Greeting {
 
         if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length > 2)  {
             String lowerCaseGreeting;
-            if (lowerCaseNames.length > 2) {
-                String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
-                lowerCaseGreeting = "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[lowerCaseNames.length - 1] + '.';
-                return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
-            }
+            String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
+            lowerCaseGreeting = "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[lowerCaseNames.length - 1] + '.';
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
         }
 
         if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length <= 2){
