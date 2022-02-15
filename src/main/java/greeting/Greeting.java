@@ -12,13 +12,13 @@ public class Greeting {
         var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
 
         if (atLeastOneUpperAndThreeLower(upperCaseNames, lowerCaseNames))  {
-            String lowerCaseGreeting;
             String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
-            lowerCaseGreeting = "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[lowerCaseNames.length - 1] + '.';
+            String lowerCaseGreeting =
+                "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[
+                    lowerCaseNames.length - 1] + '.';
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
         } else if (atLeastOneUpperAndOneLower(upperCaseNames, lowerCaseNames)){
-            String lowerCaseGreeting;
-            lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
+            String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
         } else if (names.length == 0) {
             return "Hello nameless";
