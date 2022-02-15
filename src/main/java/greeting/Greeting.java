@@ -18,7 +18,7 @@ public class Greeting {
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
         }
 
-        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length <= 2){
+        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0){
             String lowerCaseGreeting;
             lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
