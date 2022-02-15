@@ -11,28 +11,27 @@ public class Greeting {
         var upperCaseNames = Arrays.stream(names).filter(name -> isUpperCase(name)).toArray(String[]::new);
         var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
 
-        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length > 2)  {
+        if (upperCaseNames.length > 0 && lowerCaseNames.length > 2)  {
             String lowerCaseGreeting;
             String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
             lowerCaseGreeting = "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[lowerCaseNames.length - 1] + '.';
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
-        } else if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length <= 2){
+        } else if (lowerCaseNames.length > 0 && upperCaseNames.length > 0){
             String lowerCaseGreeting;
             lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
-        }
-
-        if (names.length == 0) {
+        } else if (names.length == 0) {
             return "Hello nameless";
         } else if (names.length == 1) {
             String name = names[0];
             return generateGreeting(name);
         } else if (names.length == 2) {
             return "Hello, " + String.join(" and ", names) + ".";
+        } else {
+            String[] newNames = Arrays.copyOfRange(names, 0, names.length - 1);
+            return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1]
+                + '.';
         }
-
-        String[] newNames = Arrays.copyOfRange(names, 0, names.length - 1);
-        return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1] + '.';
     }
 
     private static String mixedCaseGreeting(String[] upperCaseNames, String lowerCaseGreeting) {
