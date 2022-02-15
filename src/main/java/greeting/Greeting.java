@@ -15,14 +15,14 @@ public class Greeting {
 
         var upperCaseNamesList = Arrays.stream(upperCaseNames).collect(Collectors.toList());
         var lowerCaseNamesList = Arrays.stream(lowerCaseNames).collect(Collectors.toList());
-
+        // todo: finish replacing String[] usages with List<String>
         if (atLeastOneUpperAndThreeLower(upperCaseNamesList, lowerCaseNamesList))  {
             String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNamesList.size() - 1);
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[
                     lowerCaseNamesList.size() - 1] + '.';
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
-        } else if (atLeastOneUpperAndOneLower(upperCaseNames, lowerCaseNames)){
+        } else if (atLeastOneUpperAndOneLower(upperCaseNamesList, lowerCaseNamesList)){
             String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
         } else if (names.length == 0) {
@@ -44,8 +44,9 @@ public class Greeting {
         return lowerCaseNamesList.size() > 2 && upperCaseNamesList.size() > 0;
     }
 
-    private static boolean atLeastOneUpperAndOneLower(String[] upperCaseNames, String[] lowerCaseNames) {
-        return lowerCaseNames.length > 0 && upperCaseNames.length > 0;
+    private static boolean atLeastOneUpperAndOneLower(List<String> upperCaseNamesList,
+        List<String> lowerCaseNamesList) {
+        return lowerCaseNamesList.size() > 0 && upperCaseNamesList.size() > 0;
     }
 
     private static String mixedCaseGreeting(String[] upperCaseNames, String lowerCaseGreeting) {
