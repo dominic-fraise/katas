@@ -1,7 +1,6 @@
 package greeting;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class Greeting {
 
@@ -12,15 +11,16 @@ public class Greeting {
         var upperCaseNames = Arrays.stream(names).filter(name -> isUpperCase(name)).toArray(String[]::new);
         var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
 
-        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0) {
+        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0)  {
             String lowerCaseGreeting;
             if (lowerCaseNames.length > 2) {
                 String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
                 lowerCaseGreeting = "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[lowerCaseNames.length - 1] + '.';
-            } else {
+                return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
+            } else if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length <= 2){
                 lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
+                return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
             }
-            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
         }
 
         switch(names.length) {
