@@ -1,6 +1,8 @@
 package greeting;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Greeting {
 
@@ -11,11 +13,14 @@ public class Greeting {
         var upperCaseNames = Arrays.stream(names).filter(name -> isUpperCase(name)).toArray(String[]::new);
         var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
 
-        if (atLeastOneUpperAndThreeLower(upperCaseNames, lowerCaseNames))  {
-            String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
+        var upperCaseNamesList = Arrays.stream(upperCaseNames).collect(Collectors.toList());
+        var lowerCaseNamesList = Arrays.stream(lowerCaseNames).collect(Collectors.toList());
+
+        if (atLeastOneUpperAndThreeLower(upperCaseNamesList, lowerCaseNamesList))  {
+            String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNamesList.size() - 1);
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[
-                    lowerCaseNames.length - 1] + '.';
+                    lowerCaseNamesList.size() - 1] + '.';
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
         } else if (atLeastOneUpperAndOneLower(upperCaseNames, lowerCaseNames)){
             String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
@@ -34,8 +39,9 @@ public class Greeting {
         }
     }
 
-    private static boolean atLeastOneUpperAndThreeLower(String[] upperCaseNames, String[] lowerCaseNames) {
-        return lowerCaseNames.length > 2 && upperCaseNames.length > 0;
+    private static boolean atLeastOneUpperAndThreeLower(List<String> upperCaseNamesList,
+        List<String> lowerCaseNamesList) {
+        return lowerCaseNamesList.size() > 2 && upperCaseNamesList.size() > 0;
     }
 
     private static boolean atLeastOneUpperAndOneLower(String[] upperCaseNames, String[] lowerCaseNames) {
