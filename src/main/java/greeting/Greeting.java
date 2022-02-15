@@ -24,18 +24,16 @@ public class Greeting {
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
         }
 
-        switch(names.length) {
-            case 0:
-                return "Hello nameless";
-            case 1:
-                String name = names[0];
-                return generateGreeting(name);
-            case 2:
-                return "Hello, " + String.join(" and ", names) + ".";
-            default:
-                String[] newNames = Arrays.copyOfRange(names, 0, names.length - 1);
-                return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1] + '.';
+        if (names.length == 0) {
+            return "Hello nameless";
+        } else if (names.length == 1) {
+            String name = names[0];
+            return generateGreeting(name);
+        } else if (names.length == 2) {
+            return "Hello, " + String.join(" and ", names) + ".";
         }
+        String[] newNames = Arrays.copyOfRange(names, 0, names.length - 1);
+        return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1] + '.';
     }
 
     private static String mixedCaseGreeting(String[] upperCaseNames, String lowerCaseGreeting) {
