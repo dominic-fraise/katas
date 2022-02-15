@@ -17,10 +17,13 @@ public class Greeting {
                 String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
                 lowerCaseGreeting = "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[lowerCaseNames.length - 1] + '.';
                 return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
-            } else if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length <= 2){
-                lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
-                return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
             }
+        }
+
+        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length <= 2){
+            String lowerCaseGreeting;
+            lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
         }
 
         switch(names.length) {
