@@ -11,7 +11,7 @@ public class Greeting {
         var upperCaseNames = Arrays.stream(names).filter(name -> isUpperCase(name)).toArray(String[]::new);
         var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
 
-        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0)  {
+        if (lowerCaseNames.length > 0 && upperCaseNames.length > 0 && lowerCaseNames.length > 2)  {
             String lowerCaseGreeting;
             if (lowerCaseNames.length > 2) {
                 String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
