@@ -11,12 +11,12 @@ public class Greeting {
         var upperCaseNames = Arrays.stream(names).filter(name -> isUpperCase(name)).toArray(String[]::new);
         var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
 
-        if (upperCaseNames.length > 0 && lowerCaseNames.length > 2)  {
+        if (atLeastOneUpperAndThreeLower(upperCaseNames, lowerCaseNames))  {
             String lowerCaseGreeting;
             String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNames.length - 1);
             lowerCaseGreeting = "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[lowerCaseNames.length - 1] + '.';
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
-        } else if (lowerCaseNames.length > 0 && upperCaseNames.length > 0){
+        } else if (atLeastOneUpperAndOneLower(upperCaseNames, lowerCaseNames)){
             String lowerCaseGreeting;
             lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
             return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
@@ -32,6 +32,14 @@ public class Greeting {
             return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1]
                 + '.';
         }
+    }
+
+    private static boolean atLeastOneUpperAndThreeLower(String[] upperCaseNames, String[] lowerCaseNames) {
+        return lowerCaseNames.length > 2 && upperCaseNames.length > 0;
+    }
+
+    private static boolean atLeastOneUpperAndOneLower(String[] upperCaseNames, String[] lowerCaseNames) {
+        return lowerCaseNames.length > 0 && upperCaseNames.length > 0;
     }
 
     private static String mixedCaseGreeting(String[] upperCaseNames, String lowerCaseGreeting) {
