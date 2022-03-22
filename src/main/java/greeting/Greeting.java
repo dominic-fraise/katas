@@ -21,10 +21,10 @@ public class Greeting {
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[
                     lowerCaseNamesList.size() - 1] + '.';
-            return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
+            return mixedCaseGreeting(lowerCaseGreeting, upperCaseNamesList);
         } else if (atLeastOneUpperAndOneLower(upperCaseNamesList, lowerCaseNamesList)){
             String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
-            return mixedCaseGreeting(upperCaseNames, lowerCaseGreeting);
+            return mixedCaseGreeting(lowerCaseGreeting, upperCaseNamesList);
         } else if (names.length == 0) {
             return "Hello nameless";
         } else if (names.length == 1) {
@@ -49,8 +49,8 @@ public class Greeting {
         return lowerCaseNamesList.size() > 0 && upperCaseNamesList.size() > 0;
     }
 
-    private static String mixedCaseGreeting(String[] upperCaseNames, String lowerCaseGreeting) {
-        return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNames) + "!";
+    private static String mixedCaseGreeting(String lowerCaseGreeting, List<String> upperCaseNamesList) {
+        return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNamesList) + "!";
     }
 
     private static String generateGreeting(String name) {
