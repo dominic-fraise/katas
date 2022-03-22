@@ -1,5 +1,6 @@
 package greeting;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,13 @@ public class Greeting {
         if (names == null) {
             return concatenateString("my friend");
         }
+        List<String> splitNames = new ArrayList<>();
+
+        for (String name : names) {
+            String[] splitName = name.split(", ");
+            splitNames.addAll(Arrays.stream(splitName).collect(Collectors.toList()));
+        }
+        names = splitNames.stream().toArray(String[]::new);
 
         List<String> upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
         List<String> lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());

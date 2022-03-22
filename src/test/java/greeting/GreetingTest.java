@@ -71,4 +71,11 @@ class GreetingTest {
 
         assertThat(greetResult).isEqualTo("Hello, Brian, Charlotte, and Jill. AND HELLO AMY!");
     }
+
+    @Test
+    void shouldSplitNamesContainingCommas() {
+        String greetResult = Greeting.greet("Bob", "Charlie, Dianne");
+
+        assertThat(greetResult).isEqualTo("Hello, Bob, Charlie, and Dianne.");
+    }
 }
