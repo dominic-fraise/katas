@@ -11,20 +11,20 @@ public class Greeting {
             return concatenateString("my friend");
         }
 
-        var upperCaseNamesList = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
-        var lowerCaseNamesList = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
+        var upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
+        var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
 
-        if (atLeastOneUpperAndThreeLower(upperCaseNamesList, lowerCaseNamesList))  {
-            List<String> lowerCaseNamesWithoutLast = lowerCaseNamesList.subList(0, lowerCaseNamesList.size()-1);
+        if (atLeastOneUpperAndThreeLower(upperCaseNames, lowerCaseNames))  {
+            List<String> lowerCaseNamesWithoutLast = lowerCaseNames.subList(0, lowerCaseNames.size()-1);
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) +
-                    ", and " + lowerCaseNamesList.get(lowerCaseNamesList.size() - 1) + '.';
+                    ", and " + lowerCaseNames.get(lowerCaseNames.size() - 1) + '.';
 
-            return mixedCaseGreeting(lowerCaseGreeting, upperCaseNamesList);
+            return mixedCaseGreeting(lowerCaseGreeting, upperCaseNames);
 
-        } else if (atLeastOneUpperAndOneLower(upperCaseNamesList, lowerCaseNamesList)){
-            String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNamesList) + ".";
-            return mixedCaseGreeting(lowerCaseGreeting, upperCaseNamesList);
+        } else if (atLeastOneUpperAndOneLower(upperCaseNames, lowerCaseNames)){
+            String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
+            return mixedCaseGreeting(lowerCaseGreeting, upperCaseNames);
 
         } else if (names.length == 0) {
             return "Hello nameless";
