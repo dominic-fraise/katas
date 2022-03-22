@@ -14,7 +14,7 @@ public class Greeting {
         List<String> upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
         List<String> lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
 
-        if (atLeastOneUpperAndThreeLower(upperCaseNames, lowerCaseNames))  {
+        if (atLeastOneUpperAndAtLeastThreeLower(upperCaseNames, lowerCaseNames))  {
             List<String> lowerCaseNamesWithoutLast = lowerCaseNames.subList(0, lowerCaseNames.size()-1);
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) +
@@ -44,8 +44,8 @@ public class Greeting {
         }
     }
 
-    private static boolean atLeastOneUpperAndThreeLower(List<String> upperCaseNamesList,
-        List<String> lowerCaseNamesList) {
+    private static boolean atLeastOneUpperAndAtLeastThreeLower(List<String> upperCaseNamesList,
+                                                               List<String> lowerCaseNamesList) {
         return lowerCaseNamesList.size() > 2 && !upperCaseNamesList.isEmpty();
     }
 
