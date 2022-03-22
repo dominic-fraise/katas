@@ -46,12 +46,12 @@ public class Greeting {
 
     private static boolean atLeastOneUpperAndThreeLower(List<String> upperCaseNamesList,
         List<String> lowerCaseNamesList) {
-        return lowerCaseNamesList.size() > 2 && upperCaseNamesList.size() > 0;
+        return lowerCaseNamesList.size() > 2 && !upperCaseNamesList.isEmpty();
     }
 
     private static boolean atLeastOneUpperAndOneLower(List<String> upperCaseNamesList,
         List<String> lowerCaseNamesList) {
-        return lowerCaseNamesList.size() > 0 && upperCaseNamesList.size() > 0;
+        return !lowerCaseNamesList.isEmpty() && !upperCaseNamesList.isEmpty();
     }
 
     private static String mixedCaseGreeting(String lowerCaseGreeting, List<String> upperCaseNamesList) {
