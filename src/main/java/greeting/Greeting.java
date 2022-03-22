@@ -11,8 +11,8 @@ public class Greeting {
             return concatenateString("my friend");
         }
 
-        var upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
-        var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
+        List<String> upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
+        List<String> lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
 
         if (atLeastOneUpperAndThreeLower(upperCaseNames, lowerCaseNames))  {
             List<String> lowerCaseNamesWithoutLast = lowerCaseNames.subList(0, lowerCaseNames.size()-1);
