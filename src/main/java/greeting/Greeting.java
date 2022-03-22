@@ -10,10 +10,9 @@ public class Greeting {
         if (names == null) {
             return concatenateString("my friend");
         }
-        var upperCaseNames = Arrays.stream(names).filter(name -> isUpperCase(name)).toArray(String[]::new);
         var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
 
-        var upperCaseNamesList = Arrays.stream(upperCaseNames).collect(Collectors.toList());
+        var upperCaseNamesList = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
         var lowerCaseNamesList = Arrays.stream(lowerCaseNames).collect(Collectors.toList());
         // todo: finish replacing String[] usages with List<String>
         if (atLeastOneUpperAndThreeLower(upperCaseNamesList, lowerCaseNamesList))  {
