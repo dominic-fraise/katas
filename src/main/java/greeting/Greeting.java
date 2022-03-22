@@ -16,10 +16,10 @@ public class Greeting {
         var lowerCaseNamesList = Arrays.stream(lowerCaseNames).collect(Collectors.toList());
         // todo: finish replacing String[] usages with List<String>
         if (atLeastOneUpperAndThreeLower(upperCaseNamesList, lowerCaseNamesList))  {
-            String[] newLowerCaseNames = Arrays.copyOfRange(lowerCaseNames, 0, lowerCaseNamesList.size() - 1);
+            List<String> lowerCaseNamesWithoutLast = lowerCaseNamesList.subList(0, lowerCaseNamesList.size()-1);
             String lowerCaseGreeting =
-                "Hello, " + String.join(", ", newLowerCaseNames) + ", and " + lowerCaseNames[
-                    lowerCaseNamesList.size() - 1] + '.';
+                "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) +
+                    ", and " + lowerCaseNamesList.get(lowerCaseNamesList.size() - 1) + '.';
             return mixedCaseGreeting(lowerCaseGreeting, upperCaseNamesList);
         } else if (atLeastOneUpperAndOneLower(upperCaseNamesList, lowerCaseNamesList)){
             String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
