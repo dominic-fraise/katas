@@ -10,31 +10,37 @@ public class Greeting {
         if (names == null) {
             return concatenateString("my friend");
         }
-        var lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).toArray(String[]::new);
 
         var upperCaseNamesList = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
-        var lowerCaseNamesList = Arrays.stream(lowerCaseNames).collect(Collectors.toList());
-        // todo: finish replacing String[] usages with List<String>
+        var lowerCaseNamesList = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
+
         if (atLeastOneUpperAndThreeLower(upperCaseNamesList, lowerCaseNamesList))  {
             List<String> lowerCaseNamesWithoutLast = lowerCaseNamesList.subList(0, lowerCaseNamesList.size()-1);
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) +
                     ", and " + lowerCaseNamesList.get(lowerCaseNamesList.size() - 1) + '.';
+
             return mixedCaseGreeting(lowerCaseGreeting, upperCaseNamesList);
+
         } else if (atLeastOneUpperAndOneLower(upperCaseNamesList, lowerCaseNamesList)){
-            String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
+            String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNamesList) + ".";
             return mixedCaseGreeting(lowerCaseGreeting, upperCaseNamesList);
+
         } else if (names.length == 0) {
             return "Hello nameless";
+
         } else if (names.length == 1) {
             String name = names[0];
             return generateGreeting(name);
+
         } else if (names.length == 2) {
             return "Hello, " + String.join(" and ", names) + ".";
+
         } else {
             String[] newNames = Arrays.copyOfRange(names, 0, names.length - 1);
             return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1]
                 + '.';
+
         }
     }
 
