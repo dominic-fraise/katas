@@ -16,12 +16,11 @@ public class Greeting {
         for (String name : names) {
             String[] splitName;
             if (!name.contains("\"")) {
-                 splitName = name.split(", ");
+                splitName = name.split(", ");
+                splitNames.addAll(Arrays.stream(splitName).collect(Collectors.toList()));
             } else {
-                splitName = new String[]{name.replace("\"", "")};
+                splitNames.add(name.replace("\"", ""));
             }
-            splitNames.addAll(Arrays.stream(splitName).collect(Collectors.toList()));
-
         }
         names = splitNames.stream().toArray(String[]::new);
 
