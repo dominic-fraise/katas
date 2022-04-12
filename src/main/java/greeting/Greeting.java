@@ -14,10 +14,10 @@ public class Greeting {
         List<String> splitNames = new ArrayList<>();
 
         for (String name : names) {
-            if (!name.contains("\"")) {
-                splitNames.addAll(Arrays.stream(name.split(", ")).collect(Collectors.toList()));
-            } else {
+            if (name.contains("\"")) {
                 splitNames.add(name.replace("\"", ""));
+            } else {
+                splitNames.addAll(Arrays.stream(name.split(", ")).collect(Collectors.toList()));
             }
         }
         names = splitNames.stream().toArray(String[]::new);
