@@ -1,9 +1,9 @@
 package greeting;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Greeting {
 
@@ -11,15 +11,11 @@ public class Greeting {
         if (names == null) {
             return concatenateString("my friend");
         }
-        List<String> splitNames = new ArrayList<>();
 
-        for (String name : names) {
-            if (name.contains("\"")) {
-                splitNames.add(name.replace("\"", ""));
-            } else {
-                splitNames.addAll(Arrays.stream(name.split(", ")).collect(Collectors.toList()));
-            }
-        }
+        List<String> splitNames = Arrays.stream(names)
+                .flatMap(Greeting::splitNames)
+                .collect(Collectors.toList());
+
         names = splitNames.stream().toArray(String[]::new);
 
         List<String> upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
@@ -53,6 +49,13 @@ public class Greeting {
                 + '.';
 
         }
+    }
+
+    private static Stream<String> splitNames(String name) {
+        if (name.contains("\"")) {
+            return Stream.of(name.replace("\"", ""));
+        }
+        return Arrays.stream(name.split(", "));
     }
 
     private static boolean atLeastOneUpperAndAtLeastThreeLower(List<String> upperCaseNamesList,
