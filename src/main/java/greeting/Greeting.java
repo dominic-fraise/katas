@@ -52,7 +52,7 @@ public class Greeting {
     }
 
     private static Stream<String> splitNames(String name) {
-        if (name.startsWith("\"") && name.endsWith("\"")) {
+        if (name.startsWith("\"") && name.endsWith("\"") && name.length() > 1) {
             return Stream.of(name.replace("\"", ""));
         }
         return Arrays.stream(name.split(", "));
@@ -84,6 +84,9 @@ public class Greeting {
     }
 
     private static boolean isUpperCase(String name) {
+        if (name.equals(name.toLowerCase()) && name.equals(name.toUpperCase())) {
+            return false;
+        }
         return name.equals(name.toUpperCase());
     }
 
