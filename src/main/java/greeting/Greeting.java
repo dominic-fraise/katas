@@ -18,8 +18,7 @@ public class Greeting {
             if (!name.contains("\"")) {
                  splitName = name.split(", ");
             } else {
-                String newName = name.replace("\"", "");
-                splitName = new String[]{newName};
+                splitName = new String[]{name.replace("\"", "")};
             }
             splitNames.addAll(Arrays.stream(splitName).collect(Collectors.toList()));
 
