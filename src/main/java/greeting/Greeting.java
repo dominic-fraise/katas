@@ -52,7 +52,7 @@ public class Greeting {
     }
 
     private static Stream<String> splitNames(String name) {
-        if (name.contains("\"")) {
+        if (name.startsWith("\"") && name.endsWith("\"")) {
             return Stream.of(name.replace("\"", ""));
         }
         return Arrays.stream(name.split(", "));
