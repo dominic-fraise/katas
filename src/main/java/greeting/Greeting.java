@@ -84,10 +84,14 @@ public class Greeting {
     }
 
     private static boolean isUpperCase(String name) {
-        if (name.equals(name.toLowerCase()) && name.equals(name.toUpperCase())) {
+        if (isNonLetterCharacter(name)) {
             return false;
         }
         return name.equals(name.toUpperCase());
+    }
+
+    private static boolean isNonLetterCharacter(String name) {
+        return name.equals(name.toLowerCase()) && name.equals(name.toUpperCase());
     }
 
     private static String concatenateString(String name) {
