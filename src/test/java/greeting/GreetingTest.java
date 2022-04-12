@@ -78,4 +78,11 @@ class GreetingTest {
 
         assertThat(greetResult).isEqualTo("Hello, Bob, Charlie, and Dianne.");
     }
+
+    @Test
+    void shouldEscapeNamesWithDoubleQuotations() {
+        String greetResult = Greeting.greet("Bob", "\"Charlie, Dianne\"");
+
+        assertThat(greetResult).isEqualTo("Hello, Bob and Charlie, Dianne.");
+    }
 }

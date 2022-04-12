@@ -14,8 +14,15 @@ public class Greeting {
         List<String> splitNames = new ArrayList<>();
 
         for (String name : names) {
-            String[] splitName = name.split(", ");
+            String[] splitName;
+            if (!name.contains("\"")) {
+                 splitName = name.split(", ");
+            } else {
+                String newName = name.replace("\"", "");
+                splitName = new String[]{newName};
+            }
             splitNames.addAll(Arrays.stream(splitName).collect(Collectors.toList()));
+
         }
         names = splitNames.stream().toArray(String[]::new);
 
