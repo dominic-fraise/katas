@@ -12,16 +12,6 @@ There is only one person typing and everyone in the Mob should be able to read t
 Mob Kata sessions should be between 1.5 to 4 hours. If going longer than 1.5 hours a 10 minute break every hour is
 recommended.
 
-**Guiding Principles**
-
-1. Make it work, Make it pretty, Make it fast
-   - First make the code work
-   - Then make it read like a story
-   - Finally, make it quick where need be
-2. Humility, Respect and Trust
-   - Give and receive constructive criticism
-   - Fail fast
-   - Be open to growth
 
 ### Four Rules Of TDD
 
