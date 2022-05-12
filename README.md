@@ -3,14 +3,7 @@
 
 ### Mobing Rules
 
-**The Computer**
-
-There is only one person typing and everyone in the Mob should be able to read the screen. The typist does not dictate what is typed
-
-**Session Length**
-
-Mob Kata sessions should be between 1.5 to 4 hours. If going longer than 1.5 hours a 10 minute break every hour is
-recommended.
+.
 
 
 ### Four Rules Of TDD
