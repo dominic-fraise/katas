@@ -4,6 +4,8 @@ This is a subtitle
 
 ### Mobing Rules
 
+Yee
+
 **The Computer**
 
 There is only one person typing and everyone in the Mob should be able to read the screen. The typist does not dictate what is typed
