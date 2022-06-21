@@ -34,11 +34,11 @@ public class Greeting {
         List<String> lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
 
         Names namesObj = new Names(upperCaseNames, lowerCaseNames, names);
-        return buildSentence(upperCaseNames, lowerCaseNames, names, namesObj);
+        return buildSentence(namesObj);
 
     }
 
-    private static String buildSentence(List<String> upperCaseNames, List<String> lowerCaseNames, String[] names, Names namesObj) {
+    private static String buildSentence(Names namesObj) {
         //mixed lower case and upper case
         if (namesObj.lowerCaseNames.size() > 2 && !namesObj.upperCaseNames.isEmpty())  {
             List<String> lowerCaseNamesWithoutLast = namesObj.lowerCaseNames.subList(0, namesObj.lowerCaseNames.size()-1);
