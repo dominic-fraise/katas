@@ -68,13 +68,11 @@ public class Greeting {
         if (namesObj.getAll().size() == 0) {
             return "Hello nameless";
         }
-        if (namesObj.getAll().size() == 1 && !isUpperCase(namesObj.getAll().get(0))) {
-            String name = namesObj.getAll().get(0);
-            return "Hello, " + name + ".";
+        if (namesObj.getLowercase().size() == 1) {
+            return "Hello, " + namesObj.getLowercase().get(0) + ".";
         }
-        if (namesObj.getAll().size() == 1 && isUpperCase(namesObj.getAll().get(0))) {
-            String name = namesObj.getAll().get(0);
-            return "HELLO " + name + "!";
+        if (namesObj.getUpperCase().size() == 1) {
+            return "HELLO " + namesObj.getUpperCase().get(0) + "!";
         }
         if (namesObj.getAll().size() == 2) {
             return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
