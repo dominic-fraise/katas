@@ -21,6 +21,7 @@ public class Greeting {
         List<String> upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
         List<String> lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
 
+        //mixed lower case and upper case
         if (atLeastOneUpperAndAtLeastThreeLower(upperCaseNames, lowerCaseNames))  {
             List<String> lowerCaseNamesWithoutLast = lowerCaseNames.subList(0, lowerCaseNames.size()-1);
             String lowerCaseGreeting =
@@ -28,27 +29,27 @@ public class Greeting {
                     ", and " + lowerCaseNames.get(lowerCaseNames.size() - 1) + '.';
 
             return mixedCaseGreeting(lowerCaseGreeting, upperCaseNames);
-
-        } else if (atLeastOneUpperAndOneLower(upperCaseNames, lowerCaseNames)){
+//probs only used for 2 lower case names? + upper case
+        }
+        if (atLeastOneUpperAndOneLower(upperCaseNames, lowerCaseNames)){
             String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
             return mixedCaseGreeting(lowerCaseGreeting, upperCaseNames);
-
-        } else if (names.length == 0) {
+        }
+        if (names.length == 0) {
             return "Hello nameless";
-
-        } else if (names.length == 1) {
+        }
+        if (names.length == 1) {
             String name = names[0];
             return generateGreeting(name);
-
-        } else if (names.length == 2) {
-            return "Hello, " + String.join(" and ", names) + ".";
-
-        } else {
-            String[] newNames = Arrays.copyOfRange(names, 0, names.length - 1);
-            return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1]
-                + '.';
-
         }
+        if (names.length == 2) {
+            return "Hello, " + String.join(" and ", names) + ".";
+        }
+        //> 2 lower case only
+        String[] newNames = Arrays.copyOfRange(names, 0, names.length - 1);
+        return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1]
+            + '.';
+
     }
 
     private static Stream<String> splitNames(String name) {

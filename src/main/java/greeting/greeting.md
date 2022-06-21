@@ -1,4 +1,4 @@
-#Greeting Kata
+# Greeting Kata
 
 **Requirement 1**
 
