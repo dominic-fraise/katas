@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class Greeting {
 
     static class Names {
-        public Names(List<String> upperCaseNames, List<String> lowerCaseNames, String[] allNames) {
+        public Names(List<String> upperCaseNames, List<String> lowerCaseNames, List<String> allNames) {
             this.upperCaseNames = upperCaseNames;
             this.lowerCaseNames = lowerCaseNames;
             this.names = allNames;
@@ -16,7 +16,7 @@ public class Greeting {
 
         List<String> upperCaseNames;
         List<String> lowerCaseNames;
-        String[] names;
+        List<String> names;
     }
 
     static String greet(String... names) {
@@ -28,12 +28,10 @@ public class Greeting {
                 .flatMap(Greeting::splitNames)
                 .collect(Collectors.toList());
 
-        names = splitNames.stream().toArray(String[]::new);
+        List<String> upperCaseNames = splitNames.stream().filter(Greeting::isUpperCase).collect(Collectors.toList());
+        List<String> lowerCaseNames = splitNames.stream().filter(name -> !isUpperCase(name)).collect(Collectors.toList());
 
-        List<String> upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
-        List<String> lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
-
-        Names namesObj = new Names(upperCaseNames, lowerCaseNames, names);
+        Names namesObj = new Names(upperCaseNames, lowerCaseNames, splitNames);
         return buildSentence(namesObj);
 
     }
@@ -54,22 +52,22 @@ public class Greeting {
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.upperCaseNames) + "!";
 
         }
-        if (namesObj.names.length == 0) {
+        if (namesObj.names.size() == 0) {
             return "Hello nameless";
         }
-        if (namesObj.names.length == 1) {
-            String name = namesObj.names[0];
+        if (namesObj.names.size() == 1) {
+            String name = namesObj.names.get(0);
             if (isUpperCase(name)) {
                 return "HELLO " + name + "!";
             }
             return "Hello, " + name + ".";
         }
-        if (namesObj.names.length == 2) {
-            return "Hello, " + namesObj.names[0] + " and " + namesObj.names[1] + ".";
+        if (namesObj.names.size() == 2) {
+            return "Hello, " + namesObj.names.get(0) + " and " + namesObj.names.get(1) + ".";
         }
         //> 2 lower case only
-        String[] newNames = Arrays.copyOfRange(namesObj.names, 0, namesObj.names.length - 1);
-        return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.names[namesObj.names.length - 1] + '.';
+        List<String> newNames = namesObj.names.subList(0, namesObj.names.size() - 1);
+        return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.names.get(namesObj.names.size() - 1) + '.';
     }
 
     private static Stream<String> splitNames(String name) {
