@@ -12,6 +12,19 @@ public class Greeting {
             this.allNames = allNames;
         }
         List<Name> allNames;
+
+        private boolean hasOneUppercaseName() {
+            return getUpperCase().size() == 1;
+        }
+
+        private  boolean hasOneLowercaseName() {
+            return getLowercase().size() == 1;
+        }
+
+        private boolean hasNoNames() {
+            return getAll().size() == 0;
+        }
+
         List<String> getLowercase(){
             return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
         }
@@ -64,13 +77,13 @@ public class Greeting {
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
 
         }
-        if (namesObj.getAll().size() == 0) {
+        if (namesObj.hasNoNames()) {
             return "Hello nameless";
         }
-        if (namesObj.getLowercase().size() == 1) {
+        if (namesObj.hasOneLowercaseName()) {
             return "Hello, " + namesObj.getLowercase().get(0) + ".";
         }
-        if (namesObj.getUpperCase().size() == 1) {
+        if (namesObj.hasOneUppercaseName()) {
             return "HELLO " + namesObj.getUpperCase().get(0) + "!";
         }
         if (namesObj.getAll().size() == 2) {
