@@ -65,7 +65,7 @@ public class Greeting {
             return "Hello, " + name + ".";
         }
         if (namesObj.names.length == 2) {
-            return "Hello, " + String.join(" and ", namesObj.names) + ".";
+            return "Hello, " + namesObj.names[0] + " and " + namesObj.names[1] + ".";
         }
         //> 2 lower case only
         String[] newNames = Arrays.copyOfRange(namesObj.names, 0, namesObj.names.length - 1);
