@@ -52,10 +52,9 @@ public class Greeting {
     private static String buildSentence(Names namesObj) {
         //mixed lower case and upper case
         if (namesObj.getLowercase().size() > 2 && !namesObj.getUpperCase().isEmpty())  {
-            List<String> lowerCaseNamesWithoutLast = namesObj.getLowercase().subList(0, namesObj.getLowercase().size()-1);
+            List<String> lowerCaseNamesWithoutLast = getAllButLastItem(namesObj.getLowercase());
             String lowerCaseGreeting =
-                "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) +
-                    ", and " + namesObj.getLowercase().get(namesObj.getLowercase().size() - 1) + '.';
+                "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) + ", and " + namesObj.getLowercase().get(namesObj.getLowercase().size() - 1) + '.';
 
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
             //probs only used for 2 lower case names? + upper case
@@ -78,8 +77,12 @@ public class Greeting {
             return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
         }
         //> 2 lower case only
-        List<String> newNames = namesObj.getAll().subList(0, namesObj.getAll().size() - 1);
+        List<String> newNames = getAllButLastItem(namesObj.getAll());
         return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getAll().get(namesObj.getAll().size() - 1) + '.';
+    }
+
+    private static List<String> getAllButLastItem(List<String> namesObj) {
+        return namesObj.subList(0, namesObj.size() - 1);
     }
 
     private static Stream<String> splitNames(String name) {
