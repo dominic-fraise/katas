@@ -7,9 +7,21 @@ import java.util.stream.Stream;
 
 public class Greeting {
 
+    static class Names {
+        public Names(List<String> upperCaseNames, List<String> lowerCaseNames, String[] allNames) {
+            this.upperCaseNames = upperCaseNames;
+            this.lowerCaseNames = lowerCaseNames;
+            this.names = allNames;
+        }
+
+        List<String> upperCaseNames;
+        List<String> lowerCaseNames;
+        String[] names;
+    }
+
     static String greet(String... names) {
         if (names == null) {
-            return concatenateString("my friend");
+            return "Hello, " + "my friend" + ".";
         }
 
         List<String> splitNames = Arrays.stream(names)
@@ -21,35 +33,43 @@ public class Greeting {
         List<String> upperCaseNames = Arrays.stream(names).filter(Greeting::isUpperCase).collect(Collectors.toList());
         List<String> lowerCaseNames = Arrays.stream(names).filter(name -> !isUpperCase(name)).collect(Collectors.toList());
 
+        Names namesObj = new Names(upperCaseNames, lowerCaseNames, names);
+        return buildSentence(upperCaseNames, lowerCaseNames, names, namesObj);
+
+    }
+
+    private static String buildSentence(List<String> upperCaseNames, List<String> lowerCaseNames, String[] names, Names namesObj) {
         //mixed lower case and upper case
-        if (atLeastOneUpperAndAtLeastThreeLower(upperCaseNames, lowerCaseNames))  {
-            List<String> lowerCaseNamesWithoutLast = lowerCaseNames.subList(0, lowerCaseNames.size()-1);
+        if (namesObj.lowerCaseNames.size() > 2 && !namesObj.upperCaseNames.isEmpty())  {
+            List<String> lowerCaseNamesWithoutLast = namesObj.lowerCaseNames.subList(0, namesObj.lowerCaseNames.size()-1);
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) +
-                    ", and " + lowerCaseNames.get(lowerCaseNames.size() - 1) + '.';
+                    ", and " + namesObj.lowerCaseNames.get(namesObj.lowerCaseNames.size() - 1) + '.';
 
-            return mixedCaseGreeting(lowerCaseGreeting, upperCaseNames);
-//probs only used for 2 lower case names? + upper case
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.upperCaseNames) + "!";
+            //probs only used for 2 lower case names? + upper case
         }
-        if (atLeastOneUpperAndOneLower(upperCaseNames, lowerCaseNames)){
-            String lowerCaseGreeting = "Hello, " + String.join(" and ", lowerCaseNames) + ".";
-            return mixedCaseGreeting(lowerCaseGreeting, upperCaseNames);
+        if (!namesObj.lowerCaseNames.isEmpty() && !namesObj.upperCaseNames.isEmpty()){
+            String lowerCaseGreeting = "Hello, " + String.join(" and ", namesObj.lowerCaseNames) + ".";
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.upperCaseNames) + "!";
+
         }
-        if (names.length == 0) {
+        if (namesObj.names.length == 0) {
             return "Hello nameless";
         }
-        if (names.length == 1) {
-            String name = names[0];
-            return generateGreeting(name);
+        if (namesObj.names.length == 1) {
+            String name = namesObj.names[0];
+            if (isUpperCase(name)) {
+                return "HELLO " + name + "!";
+            }
+            return "Hello, " + name + ".";
         }
-        if (names.length == 2) {
-            return "Hello, " + String.join(" and ", names) + ".";
+        if (namesObj.names.length == 2) {
+            return "Hello, " + String.join(" and ", namesObj.names) + ".";
         }
         //> 2 lower case only
-        String[] newNames = Arrays.copyOfRange(names, 0, names.length - 1);
-        return "Hello, " + String.join(", ", newNames) + ", and " + names[names.length - 1]
-            + '.';
-
+        String[] newNames = Arrays.copyOfRange(namesObj.names, 0, namesObj.names.length - 1);
+        return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.names[namesObj.names.length - 1] + '.';
     }
 
     private static Stream<String> splitNames(String name) {
@@ -57,31 +77,6 @@ public class Greeting {
             return Stream.of(name.replace("\"", ""));
         }
         return Arrays.stream(name.split(", "));
-    }
-
-    private static boolean atLeastOneUpperAndAtLeastThreeLower(List<String> upperCaseNamesList,
-                                                               List<String> lowerCaseNamesList) {
-        return lowerCaseNamesList.size() > 2 && !upperCaseNamesList.isEmpty();
-    }
-
-    private static boolean atLeastOneUpperAndOneLower(List<String> upperCaseNamesList,
-        List<String> lowerCaseNamesList) {
-        return !lowerCaseNamesList.isEmpty() && !upperCaseNamesList.isEmpty();
-    }
-
-    private static String mixedCaseGreeting(String lowerCaseGreeting, List<String> upperCaseNamesList) {
-        return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", upperCaseNamesList) + "!";
-    }
-
-    private static String generateGreeting(String name) {
-        if (isUpperCase(name)) {
-            return concatenateShout(name);
-        }
-        return concatenateString(name);
-    }
-
-    private static String concatenateShout(String name) {
-        return "HELLO " + name + "!";
     }
 
     private static boolean isUpperCase(String name) {
@@ -95,7 +90,4 @@ public class Greeting {
         return name.equals(name.toLowerCase()) && name.equals(name.toUpperCase());
     }
 
-    private static String concatenateString(String name) {
-        return "Hello, " + name + ".";
-    }
 }
