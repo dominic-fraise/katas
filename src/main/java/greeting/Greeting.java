@@ -86,7 +86,7 @@ public class Greeting {
         if (namesObj.hasOneUppercaseName()) {
             return "HELLO " + namesObj.getUpperCase().get(0) + "!";
         }
-        if (namesObj.getAll().size() == 2) {
+        if (namesObj.getLowercase().size() == 2) {
             return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
         }
         //> 2 lower case only
