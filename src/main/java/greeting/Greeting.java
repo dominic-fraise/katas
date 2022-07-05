@@ -12,11 +12,9 @@ public class Greeting {
             return "Hello, " + "my friend" + ".";
         }
 
-        List<String> splitNames = Arrays.stream(names)
+        List<Name> allNames = Arrays.stream(names)
                 .flatMap(Greeting::splitNames)
-                .collect(Collectors.toList());
-
-        List<Name> allNames = splitNames.stream().map(Name::new).collect(Collectors.toList());
+                .map(Name::new).collect(Collectors.toList());
 
         Names namesObj = new Names(allNames);
         return buildSentence(namesObj);
