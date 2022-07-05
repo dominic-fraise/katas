@@ -1,14 +1,26 @@
 package greeting;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Names {
-    public Names(List<Name> allNames) {
-        this.allNames = allNames;
+    public Names(String... names) {
+        this.allNames = Arrays.stream(names)
+                .flatMap(this::splitNames)
+                .map(Name::new)
+                .collect(Collectors.toList());
     }
 
     private final List<Name> allNames;
+
+    private Stream<String> splitNames(String name) {
+        if (name.startsWith("\"") && name.endsWith("\"") && name.length() > 1) {
+            return Stream.of(name.replace("\"", ""));
+        }
+        return Arrays.stream(name.split(", "));
+    }
 
     List<String> getLowercase() {
         return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());

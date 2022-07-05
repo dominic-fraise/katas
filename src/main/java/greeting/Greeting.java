@@ -1,9 +1,6 @@
 package greeting;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Greeting {
 
@@ -12,11 +9,7 @@ public class Greeting {
             return "Hello, " + "my friend" + ".";
         }
 
-        List<Name> allNames = Arrays.stream(names)
-                .flatMap(Greeting::splitNames)
-                .map(Name::new).collect(Collectors.toList());
-
-        Names namesObj = new Names(allNames);
+        Names namesObj = new Names(names);
         return buildSentence(namesObj);
 
     }
@@ -52,13 +45,6 @@ public class Greeting {
 
     private static List<String> getAllButLastItem(List<String> namesObj) {
         return namesObj.subList(0, namesObj.size() - 1);
-    }
-
-    private static Stream<String> splitNames(String name) {
-        if (name.startsWith("\"") && name.endsWith("\"") && name.length() > 1) {
-            return Stream.of(name.replace("\"", ""));
-        }
-        return Arrays.stream(name.split(", "));
     }
 
 }
