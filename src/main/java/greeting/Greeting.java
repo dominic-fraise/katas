@@ -22,6 +22,11 @@ public class Greeting {
         List<String> getAll(){
             return allNames.stream().map(name -> name.value).collect(Collectors.toList());
         }
+
+        public List<Name> getAllNames() {
+            return this.allNames;
+        }
+
     }
     static class Name {
         String value;
@@ -70,12 +75,12 @@ public class Greeting {
             return "Hello nameless";
         }
 
-        String name = namesObj.getAll().get(0);
-        if (namesObj.getAll().size() == 1 && isUpperCase(name)) {
-                return "HELLO " + name + "!";
+        Name name = namesObj.getAllNames().get(0);
+        if (namesObj.getAll().size() == 1 && name.isUpperCase) {
+                return "HELLO " + name.value + "!";
         }
-        if (namesObj.getAll().size() == 1 && !isUpperCase(name)) {
-            return "Hello, " + name + ".";
+        if (namesObj.getAll().size() == 1 && !name.isUpperCase) {
+            return "Hello, " + name.value + ".";
         }
         if (namesObj.getAll().size() == 2) {
             return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
