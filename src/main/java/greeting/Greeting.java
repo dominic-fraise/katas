@@ -9,38 +9,41 @@ public class Greeting {
             return "Hello, " + "my friend" + ".";
         }
 
-        Names namesObj = new Names(names);
-        return buildSentence(namesObj);
+        return buildSentence(new Names(names));
 
     }
 
-    private static String buildSentence(Names namesObj) {
-        if (namesObj.hasManyMulticaseNames())  {
-            List<String> lowerCaseNamesWithoutLast = getAllButLastItem(namesObj.getLowercase());
+    private static String buildSentence(Names names) {
+        if (names.hasManyMulticaseNames())  {
+            List<String> lowerCaseNamesWithoutLast = getAllButLastItem(names.getLowercase());
             String lowerCaseGreeting =
-                "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) + ", and " + namesObj.getLowercase().get(namesObj.getLowercase().size() - 1) + '.';
+                "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) + ", and " + getLastItem(names.getLowercase()) + '.';
 
-            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", names.getUpperCase()) + "!";
         }
-        if (namesObj.hasManyMulticaseNamesWithLessThanTwoLower()){
-            String lowerCaseGreeting = "Hello, " + String.join(" and ", namesObj.getLowercase()) + ".";
-            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
+        if (names.hasManyMulticaseNamesWithLessThanTwoLower()){
+            String lowerCaseGreeting = "Hello, " + String.join(" and ", names.getLowercase()) + ".";
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", names.getUpperCase()) + "!";
 
         }
-        if (namesObj.hasOneLowercaseName()) {
-            return "Hello, " + namesObj.getLowercase().get(0) + ".";
+        if (names.hasOneLowercaseName()) {
+            return "Hello, " + names.getLowercase().get(0) + ".";
         }
-        if (namesObj.hasOneUppercaseName()) {
-            return "HELLO " + namesObj.getUpperCase().get(0) + "!";
+        if (names.hasOneUppercaseName()) {
+            return "HELLO " + names.getUpperCase().get(0) + "!";
         }
-        if (namesObj.hasTwoLowercaseNames()) {
-            return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
+        if (names.hasTwoLowercaseNames()) {
+            return "Hello, " + names.getAll().get(0) + " and " + names.getAll().get(1) + ".";
         }
-        if (namesObj.hasMoreThanTwoLowercaseNames()) {
-            List<String> newNames = getAllButLastItem(namesObj.getAll());
-            return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getAll().get(namesObj.getAll().size() - 1) + '.';
+        if (names.hasMoreThanTwoLowercaseNames()) {
+            List<String> newNames = getAllButLastItem(names.getAll());
+            return "Hello, " + String.join(", ", newNames) + ", and " + getLastItem(names.getAll()) + '.';
         }
         return "Hello nameless";
+    }
+
+    private static String getLastItem(List<String> list) {
+        return list.get(list.size() - 1);
     }
 
     private static List<String> getAllButLastItem(List<String> namesObj) {
