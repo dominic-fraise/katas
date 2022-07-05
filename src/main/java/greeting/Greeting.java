@@ -7,67 +7,6 @@ import java.util.stream.Stream;
 
 public class Greeting {
 
-    static class Names {
-        public Names(List<Name> allNames) {
-            this.allNames = allNames;
-        }
-        private final List<Name> allNames;
-
-        List<String> getLowercase(){
-            return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
-        }
-        List<String> getUpperCase(){
-            return allNames.stream().filter(name -> name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
-        }
-        List<String> getAll(){
-            return allNames.stream().map(name -> name.value).collect(Collectors.toList());
-        }
-
-        boolean hasOneUppercaseName() {
-            return getUpperCase().size() == 1;
-        }
-
-        boolean hasOneLowercaseName() {
-            return getLowercase().size() == 1;
-        }
-
-        boolean hasTwoLowercaseNames() {
-            return getLowercase().size() == 2;
-        }
-
-        boolean hasManyMulticaseNames() {
-            return getLowercase().size() > 2 && !getUpperCase().isEmpty();
-        }
-
-        boolean hasManyMulticaseNamesWithLessThanTwoLower() {
-            return getLowercase().size() > 0 && getLowercase().size() <= 2 && !getUpperCase().isEmpty();
-        }
-
-        boolean hasMoreThanTwoLowercaseNames() {
-            return getLowercase().size() > 2;
-        }
-    }
-    static class Name {
-        String value;
-        boolean isUpperCase;
-
-        public Name(String value) {
-            this.value = value;
-            this.isUpperCase = isUpperCase(value);
-        }
-
-        private boolean isUpperCase(String name) {
-            if (isNonLetterCharacter(name)) {
-                return false;
-            }
-            return name.equals(name.toUpperCase());
-        }
-
-        private boolean isNonLetterCharacter(String name) {
-            return name.equals(name.toLowerCase()) && name.equals(name.toUpperCase());
-        }
-    }
-
     static String greet(String... names) {
         if (names == null) {
             return "Hello, " + "my friend" + ".";
