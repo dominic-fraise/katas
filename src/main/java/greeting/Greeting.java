@@ -14,6 +14,10 @@ public class Greeting {
 
         List<Name> allNames;
 
+        private boolean hasNames() {
+            return !getAll().isEmpty();
+        }
+
         private Name getLastName() {
             return this.allNames.get(this.allNames.size() - 1);
         }
@@ -79,7 +83,7 @@ public class Greeting {
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
 
         }
-        if (namesObj.getAll().isEmpty()) {
+        if (!namesObj.hasNames()) {
             return "Hello nameless";
         }
 
