@@ -15,13 +15,6 @@ class Names {
 
     private final List<Name> allNames;
 
-    private Stream<String> splitNames(String name) {
-        if (name.startsWith("\"") && name.endsWith("\"") && name.length() > 1) {
-            return Stream.of(name.replace("\"", ""));
-        }
-        return Arrays.stream(name.split(", "));
-    }
-
     List<String> getLowercase() {
         return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
     }
@@ -56,5 +49,12 @@ class Names {
 
     boolean hasMoreThanTwoLowercaseNames() {
         return getLowercase().size() > 2;
+    }
+
+    private Stream<String> splitNames(String name) {
+        if (name.startsWith("\"") && name.endsWith("\"") && name.length() > 1) {
+            return Stream.of(name.replace("\"", ""));
+        }
+        return Arrays.stream(name.split(", "));
     }
 }
