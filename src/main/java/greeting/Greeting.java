@@ -8,16 +8,10 @@ import java.util.stream.Stream;
 public class Greeting {
 
     static class Names {
-        public Names(List<String> upperCaseNames, List<String> lowerCaseNames, List<String> names2, List<Name> allNames) {
-            this.upperCaseNames = upperCaseNames;
-            this.lowerCaseNames = lowerCaseNames;
-            this.names = names2;
+        public Names(List<Name> allNames) {
             this.allNames = allNames;
         }
 
-        List<String> upperCaseNames;
-        List<String> lowerCaseNames;
-        List<String> names;
         List<Name> allNames;
         List<String> getLowercase(){
             return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
@@ -50,10 +44,8 @@ public class Greeting {
                 .collect(Collectors.toList());
 
         List<Name> allNames = splitNames.stream().map(Name::new).collect(Collectors.toList());
-        List<String> upperCaseNames = splitNames.stream().filter(Greeting::isUpperCase).collect(Collectors.toList());
-        List<String> lowerCaseNames = splitNames.stream().filter(name -> !isUpperCase(name)).collect(Collectors.toList());
 
-        Names namesObj = new Names(upperCaseNames, lowerCaseNames, splitNames, allNames);
+        Names namesObj = new Names(allNames);
         return buildSentence(namesObj);
 
     }
