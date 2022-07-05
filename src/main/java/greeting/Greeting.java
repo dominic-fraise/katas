@@ -69,11 +69,12 @@ public class Greeting {
         if (namesObj.getAll().size() == 0) {
             return "Hello nameless";
         }
-        if (namesObj.getAll().size() == 1) {
-            String name = namesObj.getAll().get(0);
-            if (isUpperCase(name)) {
+
+        String name = namesObj.getAll().get(0);
+        if (namesObj.getAll().size() == 1 && isUpperCase(name)) {
                 return "HELLO " + name + "!";
-            }
+        }
+        if (namesObj.getAll().size() == 1 && !isUpperCase(name)) {
             return "Hello, " + name + ".";
         }
         if (namesObj.getAll().size() == 2) {
