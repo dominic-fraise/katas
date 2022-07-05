@@ -13,6 +13,11 @@ public class Greeting {
         }
 
         List<Name> allNames;
+
+        private Name getLastName() {
+            return this.allNames.get(this.allNames.size() - 1);
+        }
+
         List<String> getLowercase(){
             return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
         }
@@ -37,6 +42,9 @@ public class Greeting {
             this.isUpperCase = isUpperCase(value);
         }
 
+        public String toString() {
+            return this.value;
+        }
     }
 
     static String greet(String... names) {
@@ -87,7 +95,7 @@ public class Greeting {
         }
         //> 2 lower case only
         List<String> newNames = namesObj.getAll().subList(0, namesObj.getAll().size() - 1);
-        return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getAll().get(namesObj.getAll().size() - 1) + '.';
+        return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getLastName() + '.';
     }
 
     private static Stream<String> splitNames(String name) {
