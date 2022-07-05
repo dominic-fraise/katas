@@ -77,13 +77,10 @@ public class Greeting {
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
             //probs only used for 2 lower case names? + upper case
         }
-        if (!namesObj.getLowercase().isEmpty() && !namesObj.getUpperCase().isEmpty()){
+        if (namesObj.getLowercase().size() > 0 && namesObj.getLowercase().size() <= 2 && !namesObj.getUpperCase().isEmpty()){
             String lowerCaseGreeting = "Hello, " + String.join(" and ", namesObj.getLowercase()) + ".";
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
 
-        }
-        if (namesObj.hasNoNames()) {
-            return "Hello nameless";
         }
         if (namesObj.hasOneLowercaseName()) {
             return "Hello, " + namesObj.getLowercase().get(0) + ".";
@@ -94,9 +91,11 @@ public class Greeting {
         if (namesObj.hasTwoLowercaseNames()) {
             return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
         }
-        //> 2 lower case only
-        List<String> newNames = getAllButLastItem(namesObj.getAll());
-        return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getAll().get(namesObj.getAll().size() - 1) + '.';
+        if (namesObj.getLowercase().size() > 2) {
+            List<String> newNames = getAllButLastItem(namesObj.getAll());
+            return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getAll().get(namesObj.getAll().size() - 1) + '.';
+        }
+        return "Hello nameless";
     }
 
     private static List<String> getAllButLastItem(List<String> namesObj) {
