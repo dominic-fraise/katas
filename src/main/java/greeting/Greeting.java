@@ -94,8 +94,8 @@ public class Greeting {
         if (namesObj.getLowercase().size() == 1) {
             return "Hello, " + name.value + ".";
         }
-        if (namesObj.getAll().size() == 2) {
-            return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
+        if (namesObj.getLowercase().size() == 2) {
+            return "Hello, " + namesObj.getLowercase().get(0) + " and " + namesObj.getLowercase().get(1) + ".";
         }
         //> 2 lower case only
         List<String> newNames = getListWithoutLast(namesObj.getAll());
