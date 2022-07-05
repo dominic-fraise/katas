@@ -88,10 +88,10 @@ public class Greeting {
         }
 
         Name name = namesObj.getAllNames().get(0);
-        if (namesObj.getAll().size() == 1 && name.isUpperCase) {
+        if (namesObj.getUpperCase().size() == 1) {
                 return "HELLO " + name.value + "!";
         }
-        if (namesObj.getAll().size() == 1 && !name.isUpperCase) {
+        if (namesObj.getLowercase().size() == 1) {
             return "Hello, " + name.value + ".";
         }
         if (namesObj.getAll().size() == 2) {
