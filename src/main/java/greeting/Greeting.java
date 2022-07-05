@@ -79,7 +79,7 @@ public class Greeting {
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
 
         }
-        if (namesObj.getAll().size() == 0) {
+        if (namesObj.getAll().isEmpty()) {
             return "Hello nameless";
         }
 
