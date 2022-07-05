@@ -56,6 +56,16 @@ public class Greeting {
             this.isUpperCase = isUpperCase(value);
         }
 
+        private boolean isUpperCase(String name) {
+            if (isNonLetterCharacter(name)) {
+                return false;
+            }
+            return name.equals(name.toUpperCase());
+        }
+
+        private boolean isNonLetterCharacter(String name) {
+            return name.equals(name.toLowerCase()) && name.equals(name.toUpperCase());
+        }
     }
 
     static String greet(String... names) {
@@ -112,17 +122,6 @@ public class Greeting {
             return Stream.of(name.replace("\"", ""));
         }
         return Arrays.stream(name.split(", "));
-    }
-
-    private static boolean isUpperCase(String name) {
-        if (isNonLetterCharacter(name)) {
-            return false;
-        }
-        return name.equals(name.toUpperCase());
-    }
-
-    private static boolean isNonLetterCharacter(String name) {
-        return name.equals(name.toLowerCase()) && name.equals(name.toUpperCase());
     }
 
 }
