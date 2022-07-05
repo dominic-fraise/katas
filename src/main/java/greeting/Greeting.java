@@ -66,7 +66,7 @@ public class Greeting {
     private static String buildSentence(Names namesObj) {
         //mixed lower case and upper case
         if (namesObj.getLowercase().size() > 2 && !namesObj.getUpperCase().isEmpty())  {
-            List<String> lowerCaseNamesWithoutLast = getLowerCaseNamesWithoutLast(namesObj.getLowercase());
+            List<String> lowerCaseNamesWithoutLast = getListWithoutLast(namesObj.getLowercase());
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) +
                     ", and " + namesObj.getLowercase().get(namesObj.getLowercase().size() - 1) + '.';
@@ -94,11 +94,11 @@ public class Greeting {
             return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
         }
         //> 2 lower case only
-        List<String> newNames = getLowerCaseNamesWithoutLast(namesObj.getAll());
+        List<String> newNames = getListWithoutLast(namesObj.getAll());
         return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getLastName() + '.';
     }
 
-    private static List<String> getLowerCaseNamesWithoutLast(List<String> list) {
+    private static List<String> getListWithoutLast(List<String> list) {
         return list.subList(0, list.size() - 1);
     }
 
