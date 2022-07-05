@@ -29,6 +29,18 @@ public class Greeting {
             return getLowercase().size() == 2;
         }
 
+        private boolean hasManyMulticaseNames() {
+            return getLowercase().size() > 2 && !getUpperCase().isEmpty();
+        }
+
+        private boolean hasManyMulticaseNamesWithLessThanTwoLower() {
+            return getLowercase().size() > 0 && getLowercase().size() <= 2 && !getUpperCase().isEmpty();
+        }
+
+        private boolean hasMoreThanTwoLowercaseNames() {
+            return getLowercase().size() > 2;
+        }
+
         List<String> getLowercase(){
             return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
         }
@@ -69,7 +81,7 @@ public class Greeting {
 
     private static String buildSentence(Names namesObj) {
         //mixed lower case and upper case
-        if (namesObj.getLowercase().size() > 2 && !namesObj.getUpperCase().isEmpty())  {
+        if (namesObj.hasManyMulticaseNames())  {
             List<String> lowerCaseNamesWithoutLast = getAllButLastItem(namesObj.getLowercase());
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) + ", and " + namesObj.getLowercase().get(namesObj.getLowercase().size() - 1) + '.';
@@ -77,7 +89,7 @@ public class Greeting {
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
             //probs only used for 2 lower case names? + upper case
         }
-        if (namesObj.getLowercase().size() > 0 && namesObj.getLowercase().size() <= 2 && !namesObj.getUpperCase().isEmpty()){
+        if (namesObj.hasManyMulticaseNamesWithLessThanTwoLower()){
             String lowerCaseGreeting = "Hello, " + String.join(" and ", namesObj.getLowercase()) + ".";
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
 
@@ -91,7 +103,7 @@ public class Greeting {
         if (namesObj.hasTwoLowercaseNames()) {
             return "Hello, " + namesObj.getAll().get(0) + " and " + namesObj.getAll().get(1) + ".";
         }
-        if (namesObj.getLowercase().size() > 2) {
+        if (namesObj.hasMoreThanTwoLowercaseNames()) {
             List<String> newNames = getAllButLastItem(namesObj.getAll());
             return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getAll().get(namesObj.getAll().size() - 1) + '.';
         }
