@@ -11,35 +11,7 @@ public class Greeting {
         public Names(List<Name> allNames) {
             this.allNames = allNames;
         }
-        List<Name> allNames;
-
-        private boolean hasOneUppercaseName() {
-            return getUpperCase().size() == 1;
-        }
-
-        private  boolean hasOneLowercaseName() {
-            return getLowercase().size() == 1;
-        }
-
-        private boolean hasNoNames() {
-            return getAll().size() == 0;
-        }
-
-        private boolean hasTwoLowercaseNames() {
-            return getLowercase().size() == 2;
-        }
-
-        private boolean hasManyMulticaseNames() {
-            return getLowercase().size() > 2 && !getUpperCase().isEmpty();
-        }
-
-        private boolean hasManyMulticaseNamesWithLessThanTwoLower() {
-            return getLowercase().size() > 0 && getLowercase().size() <= 2 && !getUpperCase().isEmpty();
-        }
-
-        private boolean hasMoreThanTwoLowercaseNames() {
-            return getLowercase().size() > 2;
-        }
+        private final List<Name> allNames;
 
         List<String> getLowercase(){
             return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
@@ -51,6 +23,29 @@ public class Greeting {
             return allNames.stream().map(name -> name.value).collect(Collectors.toList());
         }
 
+        boolean hasOneUppercaseName() {
+            return getUpperCase().size() == 1;
+        }
+
+        boolean hasOneLowercaseName() {
+            return getLowercase().size() == 1;
+        }
+
+        boolean hasTwoLowercaseNames() {
+            return getLowercase().size() == 2;
+        }
+
+        boolean hasManyMulticaseNames() {
+            return getLowercase().size() > 2 && !getUpperCase().isEmpty();
+        }
+
+        boolean hasManyMulticaseNamesWithLessThanTwoLower() {
+            return getLowercase().size() > 0 && getLowercase().size() <= 2 && !getUpperCase().isEmpty();
+        }
+
+        boolean hasMoreThanTwoLowercaseNames() {
+            return getLowercase().size() > 2;
+        }
     }
     static class Name {
         String value;
@@ -80,14 +75,12 @@ public class Greeting {
     }
 
     private static String buildSentence(Names namesObj) {
-        //mixed lower case and upper case
         if (namesObj.hasManyMulticaseNames())  {
             List<String> lowerCaseNamesWithoutLast = getAllButLastItem(namesObj.getLowercase());
             String lowerCaseGreeting =
                 "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) + ", and " + namesObj.getLowercase().get(namesObj.getLowercase().size() - 1) + '.';
 
             return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
-            //probs only used for 2 lower case names? + upper case
         }
         if (namesObj.hasManyMulticaseNamesWithLessThanTwoLower()){
             String lowerCaseGreeting = "Hello, " + String.join(" and ", namesObj.getLowercase()) + ".";
