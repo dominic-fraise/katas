@@ -1,13 +1,14 @@
 import base64
 
-hexString = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
+# challenge 1
 
-def hexToBase64(hex):
+def hexToBase64():
+    hex = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
     hexAsBytes = bytearray.fromhex(hex)
     result = base64.b64encode(hexAsBytes)
     print(result)
 
-hexToBase64(hexString)
+hexToBase64()
 
 # challenge 2
 hexOne = "1c0111001f010100061a024b53535009181c"
