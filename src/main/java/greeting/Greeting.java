@@ -1,127 +1,53 @@
 package greeting;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Greeting {
-
-    static class Names {
-        public Names(List<Name> allNames) {
-            this.allNames = allNames;
-        }
-
-        List<Name> allNames;
-
-        private boolean hasNames() {
-            return !getAll().isEmpty();
-        }
-
-        private Name getLastName() {
-            return this.allNames.get(this.allNames.size() - 1);
-        }
-
-        List<String> getLowercase(){
-            return allNames.stream().filter(name -> !name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
-        }
-        List<String> getUpperCase(){
-            return allNames.stream().filter(name -> name.isUpperCase).map(name -> name.value).collect(Collectors.toList());
-        }
-        List<String> getAll(){
-            return allNames.stream().map(name -> name.value).collect(Collectors.toList());
-        }
-
-        public List<Name> getAllNames() {
-            return this.allNames;
-        }
-
-    }
-    static class Name {
-        String value;
-        boolean isUpperCase;
-
-        public Name(String value) {
-            this.value = value;
-            this.isUpperCase = isUpperCase(value);
-        }
-
-        public String toString() {
-            return this.value;
-        }
-    }
 
     static String greet(String... names) {
         if (names == null) {
             return "Hello, " + "my friend" + ".";
         }
 
-        List<String> splitNames = Arrays.stream(names)
-                .flatMap(Greeting::splitNames)
-                .collect(Collectors.toList());
-
-        List<Name> allNames = splitNames.stream().map(Name::new).collect(Collectors.toList());
-
-        Names namesObj = new Names(allNames);
-        return buildSentence(namesObj);
+        return buildSentence(new Names(names));
 
     }
 
-    private static String buildSentence(Names namesObj) {
-        //mixed lower case and upper case
-        if (namesObj.getLowercase().size() > 2 && !namesObj.getUpperCase().isEmpty())  {
-            List<String> lowerCaseNamesWithoutLast = getListWithoutLast(namesObj.getLowercase());
+    private static String buildSentence(Names names) {
+        if (names.hasManyMulticaseNames())  {
+            List<String> lowerCaseNamesWithoutLast = getAllButLastItem(names.getLowercase());
             String lowerCaseGreeting =
-                "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) +
-                    ", and " + namesObj.getLowercase().get(namesObj.getLowercase().size() - 1) + '.';
+                "Hello, " + String.join(", ", lowerCaseNamesWithoutLast) + ", and " + getLastItem(names.getLowercase()) + '.';
 
-            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
-            //probs only used for 2 lower case names? + upper case
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", names.getUpperCase()) + "!";
         }
-        if (!namesObj.getLowercase().isEmpty() && !namesObj.getUpperCase().isEmpty()){
-            String lowerCaseGreeting = "Hello, " + String.join(" and ", namesObj.getLowercase()) + ".";
-            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", namesObj.getUpperCase()) + "!";
+        if (names.hasManyMulticaseNamesWithLessThanTwoLower()){
+            String lowerCaseGreeting = "Hello, " + String.join(" and ", names.getLowercase()) + ".";
+            return lowerCaseGreeting + " AND HELLO " + String.join(" AND ", names.getUpperCase()) + "!";
 
         }
-        if (!namesObj.hasNames()) {
-            return "Hello nameless";
+        if (names.hasOneLowercaseName()) {
+            return "Hello, " + names.getLowercase().get(0) + ".";
         }
-
-        Name name = namesObj.getAllNames().get(0);
-        if (namesObj.getUpperCase().size() == 1) {
-                return "HELLO " + name.value + "!";
+        if (names.hasOneUppercaseName()) {
+            return "HELLO " + names.getUpperCase().get(0) + "!";
         }
-        if (namesObj.getLowercase().size() == 1) {
-            return "Hello, " + name.value + ".";
+        if (names.hasTwoLowercaseNames()) {
+            return "Hello, " + names.getAll().get(0) + " and " + names.getAll().get(1) + ".";
         }
-        if (namesObj.getLowercase().size() == 2) {
-            return "Hello, " + namesObj.getLowercase().get(0) + " and " + namesObj.getLowercase().get(1) + ".";
+        if (names.hasMoreThanTwoLowercaseNames()) {
+            List<String> newNames = getAllButLastItem(names.getAll());
+            return "Hello, " + String.join(", ", newNames) + ", and " + getLastItem(names.getAll()) + '.';
         }
-        //> 2 lower case only
-        List<String> newNames = getListWithoutLast(namesObj.getAll());
-        return "Hello, " + String.join(", ", newNames) + ", and " + namesObj.getLastName() + '.';
+        return "Hello nameless";
     }
 
-    private static List<String> getListWithoutLast(List<String> list) {
-        return list.subList(0, list.size() - 1);
+    private static String getLastItem(List<String> list) {
+        return list.get(list.size() - 1);
     }
 
-    private static Stream<String> splitNames(String name) {
-        if (name.startsWith("\"") && name.endsWith("\"") && name.length() > 1) {
-            return Stream.of(name.replace("\"", ""));
-        }
-        return Arrays.stream(name.split(", "));
-    }
-
-    private static boolean isUpperCase(String name) {
-        if (isNonLetterCharacter(name)) {
-            return false;
-        }
-        return name.equals(name.toUpperCase());
-    }
-
-    private static boolean isNonLetterCharacter(String name) {
-        return name.equals(name.toLowerCase()) && name.equals(name.toUpperCase());
+    private static List<String> getAllButLastItem(List<String> namesObj) {
+        return namesObj.subList(0, namesObj.size() - 1);
     }
 
 }
