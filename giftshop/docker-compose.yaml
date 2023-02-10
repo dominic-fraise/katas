@@ -1,0 +1,11 @@
+version: '2'
+services:
+  mariadb:
+    image: mariadb:10.3
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=giftshop
+      - MYSQL_PASSWORD=giftshop
+      - MYSQL_DATABASE=giftshop
+    ports:
+      - 3306:3306
