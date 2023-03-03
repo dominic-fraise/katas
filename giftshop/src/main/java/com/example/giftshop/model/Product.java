@@ -1,9 +1,16 @@
 package com.example.giftshop.model;
 
-import java.math.BigDecimal;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.Value;
 
+import java.math.BigDecimal;
+import java.util.Objects;
+
+@Data
 public class Product {
-    Long id;
-    String title;
-    BigDecimal price;
+    private Long id;
+    private String title;
+    private BigDecimal price;
 }
