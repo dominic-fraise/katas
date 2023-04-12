@@ -4,6 +4,8 @@ import com.example.giftshop.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductService {
     ProductRepository productRepository;
@@ -16,5 +18,9 @@ public class ProductService {
     public void createProduct(Product product) {
         productRepository.createProduct(product);
 
+    }
+
+    public Optional<Product> getProduct(Long productId) {
+        return productRepository.getProduct(productId);
     }
 }
