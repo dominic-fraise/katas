@@ -1,6 +1,7 @@
 package com.example.giftshop;
 
 import com.example.giftshop.model.Product;
+import com.example.giftshop.model.ProductCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,11 +23,11 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/product")
-    public void createProduct(@RequestBody Product product) {
+    public void createProduct(@RequestBody ProductCommand productCommand) {
         //why do we need to send the ID?
         // missing primary key
 
-         productService.createProduct(product);
+         productService.createProduct(productCommand);
     }
 
     @GetMapping("/product/{id}")

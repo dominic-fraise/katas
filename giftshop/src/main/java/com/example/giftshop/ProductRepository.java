@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.giftshop.model.ProductCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,12 +20,11 @@ public class ProductRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void createProduct(Product product) {
-        String sql = "INSERT INTO product (id, title, price) VALUES (:id, :title, :price)";
+    public void createProduct(ProductCommand product) {
+        String sql = "INSERT INTO product (title, price) VALUES (:title, :price)";
         jdbcTemplate.update(sql, Map.of(
-                "id", product.getId(),
-                "title", product.getTitle(),
-                "price", product.getPrice()));
+                "title", product.title(),
+                "price", product.price()));
     }
 
     public Optional<Product> getProduct(Long id) {
