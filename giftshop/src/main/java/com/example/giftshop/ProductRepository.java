@@ -35,4 +35,13 @@ public class ProductRepository {
                         rs.getBigDecimal("price")));
         return query.stream().findFirst();
     }
+
+    public Optional<Product> getProductByTitle(String title) {
+        String sql = "SELECT * FROM product WHERE title = :title";
+        List<Product> query = jdbcTemplate.query(sql, Map.of("title", title),
+                (rs, rowNum) -> new Product(rs.getLong("id"),
+                        rs.getString("title"),
+                        rs.getBigDecimal("price")));
+        return query.stream().findFirst();
+    }
 }
