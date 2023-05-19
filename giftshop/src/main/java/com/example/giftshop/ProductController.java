@@ -39,12 +39,8 @@ public class ProductController {
     }
 
     public ProductResponse getProductResponse(String title) {
-        ProductResponse productResponse = new ProductResponse();
-        productResponse.setCreated(false);
-        productService.getProductByTitle(title).ifPresent((x) -> {
-            productResponse.setCreated(true);
-            productResponse.setId(x.getId());
-        });
-        return productResponse;
+        return productService.getProductByTitle(title)
+                .map(x -> ProductResponse.success(x.getId()))
+                .orElse(ProductResponse.fail());
     }
 }
