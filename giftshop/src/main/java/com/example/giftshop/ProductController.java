@@ -27,7 +27,7 @@ public class ProductController {
         // missing primary key
 
         productService.createProduct(productCommand);
-        return productService.getProductResponse(productCommand.title());
+        return getProductResponse(productCommand.title());
     }
 
     @GetMapping("/product/{id}")
@@ -36,5 +36,15 @@ public class ProductController {
                 .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
                 .orElseGet(() -> ResponseEntity.notFound().build());
 
+    }
+
+    public ProductResponse getProductResponse(String title) {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setCreated(false);
+        productService.getProductByTitle(title).ifPresent((x) -> {
+            productResponse.setCreated(true);
+            productResponse.setId(x.getId());
+        });
+        return productResponse;
     }
 }
