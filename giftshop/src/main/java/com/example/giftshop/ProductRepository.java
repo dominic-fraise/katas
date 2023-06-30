@@ -44,4 +44,13 @@ public class ProductRepository {
                         rs.getBigDecimal("price")));
         return query.stream().findFirst();
     }
+
+    public List<Product> getProducts(String searchQuery) {
+        String sql = "SELECT id, title, price FROM product WHERE title LIKE '%:searchQuery%'";
+        List<Product> query = jdbcTemplate.query(sql, Map.of("searchQuery", searchQuery),
+                (rs, rowNum) -> new Product(rs.getLong("id"),
+                        rs.getString("title"),
+                        rs.getBigDecimal("price")));
+        return query;
+    }
 }
