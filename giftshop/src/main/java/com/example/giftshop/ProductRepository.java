@@ -7,11 +7,13 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.example.giftshop.model.ProductCommand;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@Slf4j
 public class ProductRepository {
     NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -46,11 +48,13 @@ public class ProductRepository {
     }
 
     public List<Product> getProducts(String searchQuery) {
-        String sql = "SELECT id, title, price FROM product WHERE title LIKE '%:searchQuery%'";
+        String sql = "SELECT id, title, price FROM product WHERE title LIKE '%" + searchQuery + "%'";
+        log.info(sql);
         List<Product> query = jdbcTemplate.query(sql, Map.of("searchQuery", searchQuery),
                 (rs, rowNum) -> new Product(rs.getLong("id"),
                         rs.getString("title"),
                         rs.getBigDecimal("price")));
+        log.info(query.toString());
         return query;
     }
 }
