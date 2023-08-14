@@ -3,6 +3,7 @@ package com.example.giftshop;
 import com.example.giftshop.model.Product;
 import com.example.giftshop.model.ProductCommand;
 import com.example.giftshop.model.ProductResponse;
+import com.example.giftshop.model.ProductUpdateCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,10 @@ public class ProductController {
     public ProductResponse createProduct(@RequestBody ProductCommand productCommand) {
         productService.createProduct(productCommand);
         return getProductResponse(productCommand.title());
+    }
+    @PatchMapping("/product")
+    public void updatePrice(@RequestBody ProductUpdateCommand productUpdateCommand) {
+        productService.updateProduct(productUpdateCommand);
     }
 
     @GetMapping("/product/{id}")

@@ -5,6 +5,8 @@ import com.example.giftshop.model.ProductCommand;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.example.giftshop.model.ProductUpdateCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,5 +36,9 @@ public class ProductService {
 
     public List<Product> getProducts(String searchQuery) {
         return productRepository.getProducts(searchQuery);
+    }
+
+    public void updateProduct(ProductUpdateCommand productUpdateCommand) {
+        productRepository.updatePrice(productUpdateCommand);
     }
 }

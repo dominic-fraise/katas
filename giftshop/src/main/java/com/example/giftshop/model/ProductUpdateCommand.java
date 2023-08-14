@@ -1,4 +1,7 @@
 package com.example.giftshop.model;
 
-public class ProductUpdate {
+import java.math.BigDecimal;
+
+public record ProductUpdateCommand(BigDecimal price, Long id) {
+
 }

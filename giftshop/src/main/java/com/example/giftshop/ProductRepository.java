@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.example.giftshop.model.ProductCommand;
+import com.example.giftshop.model.ProductUpdateCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -56,5 +57,13 @@ public class ProductRepository {
                         rs.getBigDecimal("price")));
         log.info(query.toString());
         return query;
+    }
+
+    public void updatePrice(ProductUpdateCommand productUpdateCommand) {
+        Long id = productUpdateCommand.id();
+        String sql = "UPDATE product SET price WHERE id = :id";
+        jdbcTemplate.update(sql, Map.of(
+                "price", productUpdateCommand.price(),
+                "id", productUpdateCommand.id()));
     }
 }
