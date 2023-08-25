@@ -61,7 +61,7 @@ public class ProductRepository {
 
     public void updatePrice(ProductUpdateCommand productUpdateCommand) {
         Long id = productUpdateCommand.id();
-        String sql = "UPDATE product SET price WHERE id = :id";
+        String sql = "UPDATE product SET price = :price WHERE id = :id";
         jdbcTemplate.update(sql, Map.of(
                 "price", productUpdateCommand.price(),
                 "id", productUpdateCommand.id()));
