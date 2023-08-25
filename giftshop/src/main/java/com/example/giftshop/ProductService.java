@@ -3,6 +3,7 @@ package com.example.giftshop;
 import com.example.giftshop.model.Product;
 import com.example.giftshop.model.ProductCommand;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class ProductService {
         return productRepository.getProductByTitle(title);
     }
 
-    public List<Product> getProducts(String searchQuery) {
+    public List<Product> getProducts(String searchQuery) throws SQLException {
         return productRepository.getProducts(searchQuery);
     }
 }

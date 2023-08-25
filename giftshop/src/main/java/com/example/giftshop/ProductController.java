@@ -3,6 +3,7 @@ package com.example.giftshop;
 import com.example.giftshop.model.Product;
 import com.example.giftshop.model.ProductCommand;
 import com.example.giftshop.model.ProductResponse;
+import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts(
             @RequestParam(required = false, defaultValue = "") String searchQuery
-    ) {
+    ) throws SQLException {
         return ResponseEntity.ok(productService.getProducts(searchQuery));
     }
 

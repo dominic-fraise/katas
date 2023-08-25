@@ -1,7 +1,14 @@
 package com.example.giftshop;
 
+import static java.sql.DriverManager.getConnection;
+
 import com.example.giftshop.model.Product;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -47,8 +54,11 @@ public class ProductRepository {
         return query.stream().findFirst();
     }
 
-    public List<Product> getProducts(String searchQuery) {
-        String sql = "SELECT id, title, price FROM product WHERE title LIKE '%" + searchQuery + "%'";
+    public List<Product> getProducts(String searchQuery) throws SQLException {
+        Connection db = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/giftshop");
+        String sql = "SELECT id, title, price FROM product WHERE title LIKE ?";
+        PreparedStatement pstmt = db.prepareStatement(searchQuery);
+        pstmt.setString( 1, searchQuery);
         log.info(sql);
         List<Product> query = jdbcTemplate.query(sql, Map.of("searchQuery", searchQuery),
                 (rs, rowNum) -> new Product(rs.getLong("id"),
