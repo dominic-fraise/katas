@@ -40,7 +40,7 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts(
             @RequestParam(required = false, defaultValue = "") String searchQuery
-    ) {
+    ) throws SQLException {
         return ResponseEntity.ok(productService.getProducts(searchQuery));
     }
 
