@@ -8,4 +8,4 @@ services:
       - MYSQL_PASSWORD=giftshop
       - MYSQL_DATABASE=giftshop
     ports:
-      - 3307:3306
+      - 3306:3306
