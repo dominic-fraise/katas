@@ -1,20 +1,16 @@
 package com.example.giftshop;
 
-import static java.sql.DriverManager.getConnection;
-
 import com.example.giftshop.model.Product;
-
+import com.example.giftshop.model.ProductCommand;
+import com.example.giftshop.model.ProductUpdateCommand;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import com.example.giftshop.model.ProductCommand;
-import com.example.giftshop.model.ProductUpdateCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -42,7 +38,7 @@ public class ProductRepository {
         List<Product> query = jdbcTemplate.query(sql, Map.of("id", id),
                 (rs, rowNum) -> new Product(rs.getLong("id"),
                         rs.getString("title"),
-                        rs.getBigDecimal("price")));
+                        BigDecimal.valueOf(rs.getFloat("price"))));
         return query.stream().findFirst();
     }
 
