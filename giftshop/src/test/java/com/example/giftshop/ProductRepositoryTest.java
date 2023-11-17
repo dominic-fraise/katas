@@ -44,8 +44,8 @@ class ProductRepositoryTest {
 
   @ParameterizedTest
   @CsvSource(value = {"Title 1, 10",
-                      "title 2, 10",
-                      "title 2, 10",
+                      "hand-soap, 10.35",
+                      "hat-$%£@^&*()!, 10000000000000",
                       "title 2, 10",
                       "title 2, 10"
   })
