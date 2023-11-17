@@ -7,6 +7,8 @@ import com.example.giftshop.model.ProductCommand;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -38,6 +40,24 @@ class ProductRepositoryTest {
     assertEquals("Dom's cool keyring", product.getTitle());
     assertEquals(BigDecimal.valueOf(10.0), product.getPrice());
 
+  }
+
+  @Test
+  @ParameterizedTest
+  @CsvSource(value = {"Title 1, output1",
+                      "title 2, output2",
+                      "title 2, output2",
+                      "title 2, output2",
+                      "title 2, output2"
+  })
+  void getProductByTitleTest(String title, String output) {
+    System.out.println(title);
+    System.out.println(output);
+    ProductCommand testProduct = new ProductCommand("Dom's cool keyring", BigDecimal.valueOf(10.0));
+
+    productRepository.createProduct(testProduct);
+
+    productRepository.getProductByTitle("");
   }
 
 }
