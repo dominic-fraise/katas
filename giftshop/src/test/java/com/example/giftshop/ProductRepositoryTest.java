@@ -42,22 +42,24 @@ class ProductRepositoryTest {
 
   }
 
-  @Test
   @ParameterizedTest
-  @CsvSource(value = {"Title 1, output1",
-                      "title 2, output2",
-                      "title 2, output2",
-                      "title 2, output2",
-                      "title 2, output2"
+  @CsvSource(value = {"Title 1, 10",
+                      "title 2, 10",
+                      "title 2, 10",
+                      "title 2, 10",
+                      "title 2, 10"
   })
-  void getProductByTitleTest(String title, String output) {
+  void getProductByTitleTest(String title, BigDecimal price) {
     System.out.println(title);
-    System.out.println(output);
-    ProductCommand testProduct = new ProductCommand("Dom's cool keyring", BigDecimal.valueOf(10.0));
+    System.out.println(price);
+    ProductCommand testProduct = new ProductCommand(title, price);
 
     productRepository.createProduct(testProduct);
 
-    productRepository.getProductByTitle("");
+    Product product = productRepository.getProductByTitle(title).get();
+
+    assertEquals(title, product.getTitle());
+    assertEquals(price, product.getPrice());
   }
 
 }
