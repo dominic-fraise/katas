@@ -1,2 +1,3 @@
-package com.example.giftshop.model;public class ProductTitle {
+package com.example.giftshop.model;
+public class ProductTitle {
 }
