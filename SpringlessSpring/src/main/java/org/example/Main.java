@@ -1,17 +1,47 @@
 package org.example;
 
+import javax.net.ServerSocketFactory;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
+    public static void main(String[] args) throws IOException {
         System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        ServerSocket serverSocket = ServerSocketFactory.getDefault().createServerSocket(8080);
+
+        while(true) {
+            Socket accept = serverSocket.accept();
+            Runnable t = () -> {
+                StringBuilder body = new StringBuilder("<html><body>Hello world</body></html>");
+                try {
+                    createHttpResponse(accept, body);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            };
+            t.run();
+
         }
+
+
+
+    }
+
+    private static void createHttpResponse(Socket accept, StringBuilder body) throws IOException {
+        PrintStream ps = new PrintStream(accept.getOutputStream());
+        ps.println("HTTP/1.1 200 OK");
+        ps.println("Date: Mon, 27 Jul 2009 12:28:53 GMT");
+        ps.println("Server: Java");
+        ps.println("Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT");
+        ps.println("Content-Length: " + body.length());
+        ps.println("Content-Type: text/html");
+        ps.println("Connection: Closed");
+        ps.println();
+        ps.println(body);
     }
 }
