@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -19,7 +18,7 @@ public class Main {
         StringBuilder body2 = new StringBuilder("<html><body>Test</body></html>");
 
 
-        while(true) {
+        while (true) {
             Socket accept = serverSocket.accept();
 
             InputStream inputStream = accept.getInputStream();
@@ -27,12 +26,15 @@ public class Main {
             String firstHeader = fullRequest.substring(0, fullRequest.indexOf("\n"));
             String[] pathParts = firstHeader.split(" ");
             String path = pathParts[1];
+            inputStream.reset();
 
-            System.out.println(path);
             Runnable t = () -> {
-//                if()
                 try {
-                    createHttpResponse(accept, body);
+                    if (path.equals("/test")) {
+                        createHttpResponse(accept, body2);
+                    }else {
+                        createHttpResponse(accept, body);
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -40,7 +42,6 @@ public class Main {
             t.run();
 
         }
-
 
 
     }
