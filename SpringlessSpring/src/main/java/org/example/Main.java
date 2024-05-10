@@ -2,9 +2,11 @@ package org.example;
 
 import javax.net.ServerSocketFactory;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -13,11 +15,22 @@ public class Main {
         System.out.printf("Hello and welcome!");
 
         ServerSocket serverSocket = ServerSocketFactory.getDefault().createServerSocket(8080);
+        StringBuilder body = new StringBuilder("<html><body>Hello world</body></html>");
+        StringBuilder body2 = new StringBuilder("<html><body>Test</body></html>");
+
 
         while(true) {
             Socket accept = serverSocket.accept();
+
+            InputStream inputStream = accept.getInputStream();
+            String fullRequest = new String(inputStream.readAllBytes());
+            String firstHeader = fullRequest.substring(0, fullRequest.indexOf("\n"));
+            String[] pathParts = firstHeader.split(" ");
+            String path = pathParts[1];
+
+            System.out.println(path);
             Runnable t = () -> {
-                StringBuilder body = new StringBuilder("<html><body>Hello world</body></html>");
+//                if()
                 try {
                     createHttpResponse(accept, body);
                 } catch (IOException e) {
