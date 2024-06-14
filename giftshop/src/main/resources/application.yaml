@@ -11,3 +11,9 @@ spring:
     table: schema_version
   application:
     name: giftshop
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: root
+      password: example
