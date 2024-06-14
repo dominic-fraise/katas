@@ -17,3 +17,4 @@ spring:
       port: 27017
       username: root
       password: example
+      authentication-database: admin
