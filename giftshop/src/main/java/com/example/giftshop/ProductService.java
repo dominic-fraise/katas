@@ -10,6 +10,11 @@ import java.util.Random;
 
 import com.example.giftshop.model.ProductUpdateCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +22,14 @@ import org.springframework.stereotype.Service;
 public class ProductService {
     ProductRepository productRepository;
     private final ProductMongoRepository productMongoRepository;
+    private final MongoTemplate mongoTemplate;
     ProductController productController;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, ProductMongoRepository productMongoRepository) {
+    public ProductService(ProductRepository productRepository, ProductMongoRepository productMongoRepository, MongoTemplate mongoTemplate) {
         this.productRepository = productRepository;
         this.productMongoRepository = productMongoRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     public void createProduct(ProductCommand product) {
@@ -31,7 +38,7 @@ public class ProductService {
     }
 
     public Optional<Product> getProduct(Long productId) {
-        return productRepository.getProduct(productId);
+        return productMongoRepository.findById(String.valueOf(productId));
     }
 
     public Optional<Product> getProductByTitle(String title) {
@@ -39,7 +46,7 @@ public class ProductService {
     }
 
     public List<Product> getProducts(String searchQuery) throws SQLException {
-        return productRepository.getProducts(searchQuery);
+        return mongoTemplate.find(new Query(Criteria.where("title").is(searchQuery)), Product.class);
     }
 
     public void updateProduct(ProductUpdateCommand productUpdateCommand) {
