@@ -32,12 +32,13 @@ public class ProductService {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public void createProduct(ProductCommand product) {
+    public Product createProduct(ProductCommand product) {
         productRepository.createProduct(product);
-        productMongoRepository.insert(new Product(new Random().nextLong(), product.title(), product.price()));
+        return productMongoRepository.insert(new Product(new Random().nextLong(), product.title(), product.price()));
     }
 
     public Optional<Product> getProduct(Long productId) {
+        System.out.println("Reached endpoint");
         return productMongoRepository.findById(String.valueOf(productId));
     }
 

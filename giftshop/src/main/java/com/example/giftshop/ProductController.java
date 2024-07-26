@@ -22,8 +22,8 @@ public class ProductController {
 
     @PostMapping("/product")
     public ProductResponse createProduct(@RequestBody ProductCommand productCommand) {
-        productService.createProduct(productCommand);
-        return getProductResponse(productCommand.title());
+        Product product = productService.createProduct(productCommand);
+        return getProductResponse(product);
     }
     @PatchMapping("/product")
     public void updatePrice(@RequestBody ProductUpdateCommand productUpdateCommand) {
@@ -32,6 +32,7 @@ public class ProductController {
 
     @GetMapping("/product/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+        System.out.println("Reached controller");
         return productService.getProduct(id)
                 .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -45,9 +46,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProducts(searchQuery));
     }
 
-    public ProductResponse getProductResponse(String title) {
-        return productService.getProductByTitle(title)
-                .map(x -> ProductResponse.success(x.getId()))
-                .orElse(ProductResponse.fail());
+    public ProductResponse getProductResponse(Product product) {
+        return ProductResponse.success(product.getId());
     }
 }
